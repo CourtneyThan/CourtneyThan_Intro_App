@@ -6,15 +6,18 @@ Everything you see in the app (the welcome screen, the five tabs, every card and
 
 The UI was designed first in [Figma](https://www.figma.com/design/kwMbBvJQRsWkpjbLCwfbCV) (ink, cream and peach, drippy ink headers, and an original mascot named **Inky**) and then built to match, using the same color tokens, type ramp, icon paths and drip curves.
 
-## Screenshots
+## Demo
 
+<p align="left">
+  <img src="docs/demo.gif" width="320" alt="Screen recording: welcome screen, Home, Toolbox, Journey, Culture with Vietnam photos, and Fun facts"/>
+</p>
+<p align="left"><a href="docs/demo.mp4">▶️ Watch the full-quality video (MP4)</a></p>
 
-| <img src="docs/screenshots/welcome.png" width="160" alt="Welcome screen with Inky the mascot"/> | <img src="docs/screenshots/home.png" width="160" alt="Home tab with avatar, stats and about me"/> | <img src="docs/screenshots/toolbox.png" width="160" alt="Toolbox tab with filter chips and skill cards"/> | <img src="docs/screenshots/journey.png" width="160" alt="Journey tab with career timeline"/> | <img src="docs/screenshots/culture.png" width="160" alt="Culture tab with Vietnamese culture cards and dishes"/> | <img src="docs/screenshots/fun-facts.png" width="160" alt="Fun facts tab with flip cards and contact card"/> |
+| Welcome | Home | Toolbox | Journey | Culture | Fun facts |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| <img src="docs/screenshots/welcome.png" width="140" alt="Welcome screen with Inky the mascot"/> | <img src="docs/screenshots/home.png" width="140" alt="Home tab with avatar, stats and about me"/> | <img src="docs/screenshots/toolbox.png" width="140" alt="Toolbox tab with filter chips and skill cards"/> | <img src="docs/screenshots/journey.png" width="140" alt="Journey tab with career timeline"/> | <img src="docs/screenshots/culture.png" width="140" alt="Culture tab with Vietnamese culture cards"/> | <img src="docs/screenshots/fun-facts.png" width="140" alt="Fun facts tab with flip cards and travel list"/> |
 
 Designed in [Figma](https://www.figma.com/design/kwMbBvJQRsWkpjbLCwfbCV) first, then built to match.
-
-<!-- Optional: add a short screen recording at docs/demo.gif and uncomment:
-<p align="center"><img src="docs/demo.gif" width="300" alt="App demo"/></p> -->
 
 ![Android CI](https://github.com/CourtneyThan/CourtneyThan_Intro_App/actions/workflows/android.yml/badge.svg)
 
@@ -98,7 +101,6 @@ Apollo then fetches each country's flag, capital, continent, currency and langua
 |---|---|
 | [`schema.graphqls`](core/data/src/main/graphql/schema.graphqls) | The schema (SDL) for the part of the API the app uses |
 | [`Countries.graphql`](core/data/src/main/graphql/Countries.graphql) | The query. Apollo generates the type-safe `CountriesQuery` class from it at build time |
-| [`extra.graphqls`](core/data/src/main/graphql/extra.graphqls) | Client-only rule: `@typePolicy(keyFields: "code")`, so the cache stores each country once (`Country:JP`) |
 | [`PlacesRepository.kt`](core/data/src/main/kotlin/com/courtneythan/aboutme/core/data/PlacesRepository.kt) | Runs the query and maps Apollo's generated classes to the app's own `Place` model |
 | [`DataModule.kt`](core/data/src/main/kotlin/com/courtneythan/aboutme/core/data/di/DataModule.kt) | Builds the `ApolloClient`: server URL, shared OkHttp client, memory + SQLite cache |
 | [`PlacesViewModel.kt`](feature/profile/src/main/kotlin/com/courtneythan/aboutme/feature/profile/places/PlacesViewModel.kt) | Takes the codes from the JSON, exposes `Loading` / `Content` / `Error`, supports retry |
@@ -136,13 +138,15 @@ More detail: [ADR 0004 – Layout from JSON, data from GraphQL](docs/adr/0004-la
 Under "Vietnam at a glance", the Culture tab shows a swipeable row of Vietnam photos from [Pexels](https://www.pexels.com). A photos section can get its photos three ways:
 
 ```json
-{ "type": "photos", "id": "vietnam-photos", "items": [
-  { "imageUrl": "https://images.pexels.com/photos/20224478/pexels-photo-20224478.jpeg?auto=compress&cs=tinysrgb&w=1260",
-    "pageUrl": "https://www.pexels.com/photo/square-in-front-of-binh-tay-market-20224478/",
-    "photographer": "Tuan Vy", "photographerUrl": "https://www.pexels.com/@tuan-vy-903011268/",
-    "alt": "The Binh Tay Market entrance with trees and flags in Ho Chi Minh City" } ] }
-{ "type": "photos", "id": "picked",  "photoIds": [20224478, 14025217] }
-{ "type": "photos", "id": "search",  "query": "Hoi An", "count": 6 }
+[
+  { "type": "photos", "id": "vietnam-photos", "items": [
+    { "imageUrl": "https://images.pexels.com/photos/20224478/pexels-photo-20224478.jpeg?auto=compress&cs=tinysrgb&w=1260",
+      "pageUrl": "https://www.pexels.com/photo/square-in-front-of-binh-tay-market-20224478/",
+      "photographer": "Tuan Vy", "photographerUrl": "https://www.pexels.com/@tuan-vy-903011268/",
+      "alt": "The Binh Tay Market entrance with trees and flags in Ho Chi Minh City" } ] },
+  { "type": "photos", "id": "picked", "photoIds": [20224478, 14025217] },
+  { "type": "photos", "id": "search", "query": "Hoi An", "count": 6 }
+]
 ```
 
 - **`items`** (what the app uses today): each photo spelled out in the JSON, including its credit. Images load straight from Pexels' public image links, so **no API key** is needed. This exists because Pexels has paused new API keys.
