@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Single-color Inky for Android 13+ themed icons. The system recolors this layer and
+  ignores its colors, so the eyes are cut out as holes (evenOdd) instead of drawn in white.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:translateX="22.8"
+        android:translateY="23.8"
+        android:scaleX="0.52"
+        android:scaleY="0.52">
+        <path android:pathData="M44,26 L35,9" android:strokeColor="#000000" android:strokeWidth="5" android:strokeLineCap="round" />
+        <path android:pathData="M76,26 L85,9" android:strokeColor="#000000" android:strokeWidth="5" android:strokeLineCap="round" />
+        <path android:pathData="M30,9 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" android:fillColor="#000000" />
+        <path android:pathData="M80,9 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" android:fillColor="#000000" />
+        <!-- body with the two eyes cut out -->
+        <path
+            android:fillColor="#000000"
+            android:fillType="evenOdd"
+            android:pathData="M20,70 C20,35 42,20 60,20 C78,20 100,35 100,70 L100,92 C100,98 94,100 92,94 C90,88 86,88 85,96 C84,106 76,106 75,96 C74,90 68,90 67,98 C66,112 56,112 55,98 C54,90 48,90 47,96 C46,104 38,104 37,96 C36,90 30,90 28,96 C26,100 20,98 20,92 Z M35,60 a11,13 0 1,0 22,0 a11,13 0 1,0 -22,0 Z M63,60 a11,13 0 1,0 22,0 a11,13 0 1,0 -22,0 Z" />
+        <!-- pupils back inside the holes -->
+        <path android:pathData="M42,63 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0" android:fillColor="#000000" />
+        <path android:pathData="M70,63 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0" android:fillColor="#000000" />
+    </group>
+</vector>

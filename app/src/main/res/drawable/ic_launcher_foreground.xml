@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- A simple heart inside the adaptive-icon safe zone (centered 66dp of 108dp). -->
+<!--
+  Inky, the app's mascot, as the launcher icon foreground.
+  Same paths as core/designsystem/.../drawable/inky.xml (120×120), scaled by 0.52 and
+  centered in the adaptive-icon safe zone (the middle 66 of 108 units), so no phone's
+  icon mask (circle, squircle, rounded square) can clip it.
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path
-        android:fillColor="#F6A779"
-        android:pathData="M54,74 C54,74 34,61.5 34,47.5 C34,40.5 39.5,35 46,35 C49.6,35 52.6,36.8 54,39.4 C55.4,36.8 58.4,35 62,35 C68.5,35 74,40.5 74,47.5 C74,61.5 54,74 54,74 Z" />
+    <group
+        android:translateX="22.8"
+        android:translateY="23.8"
+        android:scaleX="0.52"
+        android:scaleY="0.52">
+        <!-- antennae -->
+        <path android:pathData="M44,26 L35,9" android:strokeColor="#1E1B26" android:strokeWidth="5" android:strokeLineCap="round" />
+        <path android:pathData="M76,26 L85,9" android:strokeColor="#1E1B26" android:strokeWidth="5" android:strokeLineCap="round" />
+        <path android:pathData="M30,9 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" android:fillColor="#1E1B26" />
+        <path android:pathData="M80,9 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" android:fillColor="#1E1B26" />
+        <!-- body -->
+        <path
+            android:fillColor="#1E1B26"
+            android:pathData="M20,70 C20,35 42,20 60,20 C78,20 100,35 100,70 L100,92 C100,98 94,100 92,94 C90,88 86,88 85,96 C84,106 76,106 75,96 C74,90 68,90 67,98 C66,112 56,112 55,98 C54,90 48,90 47,96 C46,104 38,104 37,96 C36,90 30,90 28,96 C26,100 20,98 20,92 Z" />
+        <!-- eyes -->
+        <path android:pathData="M35,60 a11,13 0 1,0 22,0 a11,13 0 1,0 -22,0" android:fillColor="#FFFFFF" />
+        <path android:pathData="M63,60 a11,13 0 1,0 22,0 a11,13 0 1,0 -22,0" android:fillColor="#FFFFFF" />
+        <path android:pathData="M42,63 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0" android:fillColor="#1E1B26" />
+        <path android:pathData="M70,63 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0" android:fillColor="#1E1B26" />
+        <path android:pathData="M43,59 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0" android:fillColor="#FFFFFF" />
+        <path android:pathData="M71,59 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0" android:fillColor="#FFFFFF" />
+        <!-- cheeks -->
+        <path android:pathData="M27,77 a6,3.5 0 1,0 12,0 a6,3.5 0 1,0 -12,0" android:fillColor="#F6A779" />
+        <path android:pathData="M81,77 a6,3.5 0 1,0 12,0 a6,3.5 0 1,0 -12,0" android:fillColor="#F6A779" />
+        <!-- smile -->
+        <path android:pathData="M55,78 Q60,84 65,78" android:strokeColor="#FFFFFF" android:strokeWidth="3" android:strokeLineCap="round" />
+    </group>
 </vector>
