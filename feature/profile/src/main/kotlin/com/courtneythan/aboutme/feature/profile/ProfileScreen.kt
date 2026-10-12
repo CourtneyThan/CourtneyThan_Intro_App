@@ -110,7 +110,7 @@ private fun AboutMeApp(profile: Profile, source: ContentSource, onOpenUrl: (Stri
             onBack = { selectedTabId = homeId },
         )
         BottomNav(
-            items = profile.tabs.map { NavItem(it.label, InkyIcons.named(it.icon)) },
+            items = profile.tabs.map { NavItem(it.label, InkyIcons.named(it.icon), InkyIcons.isMulticolor(it.icon)) },
             selectedIndex = selectedIndex,
             onSelect = { selectedTabId = profile.tabs[it].id },
             modifier = Modifier

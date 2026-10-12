@@ -11,6 +11,10 @@
     <string name="error_title">Oops, I couldn\'t load my story</string>
     <string name="retry">Try again</string>
     <string name="places_error">Couldn\'t reach the places API. Check your connection.</string>
+    <string name="photos_error">Couldn\'t load photos. Check your connection.</string>
+    <string name="photos_missing_key">Add PEXELS_API_KEY to local.properties to see photos here.</string>
+    <string name="photo_by">Photo by %1$s</string>
+    <string name="photos_credit">Photos provided by Pexels</string>
     <string name="profile_footer">Made with Kotlin &amp; Compose · content: %1$s</string>
     <string name="source_bundled">bundled</string>
     <string name="source_cache">cached</string>

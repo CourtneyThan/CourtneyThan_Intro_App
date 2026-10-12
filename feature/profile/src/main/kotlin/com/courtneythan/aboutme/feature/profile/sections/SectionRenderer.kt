@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.courtneythan.aboutme.core.model.Action
 import com.courtneythan.aboutme.core.model.Section
+import com.courtneythan.aboutme.feature.profile.photos.PhotosSection
 import com.courtneythan.aboutme.feature.profile.places.PlacesSection
 
 /**
@@ -33,6 +34,7 @@ fun SectionRenderer(
         is Section.Timeline -> TimelineSection(section, content)
         is Section.FunFacts -> FunFactsSection(section, content)
         is Section.Places -> PlacesSection(section, content)
+        is Section.Photos -> PhotosSection(section, onAction, content)
         is Section.Contact -> ContactSection(section, onAction, content)
         is Section.Unsupported -> Unit // filtered out upstream; render nothing just in case
     }

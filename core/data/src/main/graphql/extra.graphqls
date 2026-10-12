@@ -1,4 +1,0 @@
-# Client-only schema extensions (never sent to the server).
-# A country is identified by its ISO code, so the normalized cache stores each country
-# once under "Country:JP" no matter which query fetched it.
-extend type Country @typePolicy(keyFields: "code")

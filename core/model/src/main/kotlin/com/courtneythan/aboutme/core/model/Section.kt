@@ -56,6 +56,7 @@ sealed class Section {
     @SerialName("skills")
     data class Skills(
         override val id: String,
+        val title: String? = null,
         val allLabel: String = "All",
         val cards: List<SkillCard>,
     ) : Section()
@@ -86,6 +87,30 @@ sealed class Section {
         val subtitle: String? = null,
         val countryCodes: List<String>,
     ) : Section()
+
+    /**
+     * A swipeable row of photos, from one of three sources (first match wins):
+     *  - [items]: photos spelled out in the JSON (no API key or network call needed),
+     *  - [photoIds]: hand-picked Pexels IDs, fetched from the Pexels API in that order,
+     *  - [query]: the top [count] Pexels search results.
+     */
+    @Serializable
+    @SerialName("photos")
+    data class Photos(
+        override val id: String,
+        val items: List<PhotoItem> = emptyList(),
+        val photoIds: List<Long> = emptyList(),
+        val query: String? = null,
+        val title: String? = null,
+        val count: Int = 6,
+    ) : Section() {
+        init {
+            // Thrown during decoding, so a section with no source becomes Unsupported.
+            require(items.isNotEmpty() || photoIds.isNotEmpty() || !query.isNullOrBlank()) {
+                "photos needs items, photoIds or a query"
+            }
+        }
+    }
 
     @Serializable
     @SerialName("contact")
@@ -120,6 +145,16 @@ sealed class Action {
     @SerialName("open_url")
     data class OpenUrl(val url: String) : Action()
 }
+
+/** A photo written directly in the JSON, with the credit its license asks for. */
+@Serializable
+data class PhotoItem(
+    val imageUrl: String,
+    val pageUrl: String,
+    val photographer: String,
+    val photographerUrl: String,
+    val alt: String,
+)
 
 @Serializable
 data class Stat(val value: String, val label: String)

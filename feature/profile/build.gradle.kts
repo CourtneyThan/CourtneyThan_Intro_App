@@ -33,6 +33,8 @@ dependencies {
     implementation(libs.androidx.activity.compose) // BackHandler
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.coil.compose) // loads and caches photos
+    implementation(libs.coil.network.okhttp)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.compiler)

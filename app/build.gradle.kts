@@ -23,6 +23,19 @@ android {
         // app's content without shipping a new build. Leave blank to use bundled content only.
         // e.g. "https://raw.githubusercontent.com/<you>/about-me-android/main/app/src/main/assets/profile.json"
         buildConfigField("String", "PROFILE_URL", "\"\"")
+
+        // Pexels API key for the photo section. Keep it OUT of git: put
+        //   PEXELS_API_KEY=your_key
+        // in local.properties (already git-ignored). Without it the photos section
+        // shows a friendly "add a key" card and everything else works.
+        val pexelsKey = rootProject.file("local.properties")
+            .takeIf { it.exists() }
+            ?.readLines()
+            ?.firstOrNull { it.startsWith("PEXELS_API_KEY=") }
+            ?.substringAfter("=")
+            ?.trim()
+            .orEmpty()
+        buildConfigField("String", "PEXELS_API_KEY", "\"$pexelsKey\"")
     }
 
     buildTypes {

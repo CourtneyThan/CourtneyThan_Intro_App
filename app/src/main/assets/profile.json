@@ -21,9 +21,18 @@
           "nickname": "Thien",
           "title": "Android Engineer @ Expedia",
           "stats": [
-            { "value": "3", "label": "years at Expedia" },
-            { "value": "+15%", "label": "AI rec engagement" },
-            { "value": "15+", "label": "code reviews / mo" }
+            {
+              "value": "3",
+              "label": "years at Expedia"
+            },
+            {
+              "value": "+15%",
+              "label": "AI rec engagement"
+            },
+            {
+              "value": "15+",
+              "label": "code reviews / mo"
+            }
           ]
         },
         {
@@ -38,8 +47,42 @@
           "type": "link_list",
           "id": "links",
           "links": [
-            { "title": "My toolbox", "subtitle": "Kotlin, Compose, SDUI & more", "icon": "star", "action": { "type": "open_tab", "tabId": "toolbox" } },
-            { "title": "My journey", "subtitle": "From UCF to Expedia", "icon": "map", "action": { "type": "open_tab", "tabId": "journey" } }
+            {
+              "title": "My toolbox",
+              "subtitle": "Kotlin, Compose, SDUI & more",
+              "icon": "star",
+              "action": {
+                "type": "open_tab",
+                "tabId": "toolbox"
+              }
+            },
+            {
+              "title": "My journey",
+              "subtitle": "From UCF to Expedia",
+              "icon": "map",
+              "action": {
+                "type": "open_tab",
+                "tabId": "journey"
+              }
+            },
+            {
+              "title": "My culture",
+              "subtitle": "Vietnamese roots, food & Tết",
+              "icon": "lantern",
+              "action": {
+                "type": "open_tab",
+                "tabId": "culture"
+              }
+            },
+            {
+              "title": "Fun facts",
+              "subtitle": "Matcha, Rome & a little more about me",
+              "icon": "heart",
+              "action": {
+                "type": "open_tab",
+                "tabId": "fun"
+              }
+            }
           ]
         }
       ]
@@ -49,18 +92,54 @@
       "label": "Toolbox",
       "icon": "star",
       "sections": [
-        { "type": "header", "id": "header", "title": "My toolbox" },
+        {
+          "type": "header",
+          "id": "header",
+          "title": "My toolbox"
+        },
         {
           "type": "skills",
           "id": "skills",
           "allLabel": "All",
           "cards": [
-            { "glyph": "K", "title": "Kotlin", "caption": "My everyday language", "category": "Android" },
-            { "glyph": "UI", "title": "Jetpack Compose", "caption": "Built a 10-component Help Center library", "category": "Android", "featured": true },
-            { "glyph": "~", "title": "Coroutines & Flow", "caption": "Async code that stays tidy", "category": "Android" },
-            { "glyph": "{ }", "title": "Server-driven UI", "caption": "Screens described by JSON", "category": "Architecture" },
-            { "glyph": "Q", "title": "GraphQL + Apollo", "caption": "Fast, cached data", "category": "Architecture" },
-            { "glyph": "OK", "title": "Testing", "caption": "JUnit, Compose UI & Mockito", "category": "Testing" }
+            {
+              "glyph": "K",
+              "title": "Kotlin",
+              "caption": "My everyday language",
+              "category": "Android",
+              "featured": true
+            },
+            {
+              "glyph": "UI",
+              "title": "Jetpack Compose",
+              "caption": "Built a 10-component Help Center library",
+              "category": "Android",
+              "featured": true
+            },
+            {
+              "glyph": "~",
+              "title": "Coroutines & Flow",
+              "caption": "Async code that stays tidy",
+              "category": "Android"
+            },
+            {
+              "glyph": "{ }",
+              "title": "Server-driven UI",
+              "caption": "Screens described by JSON",
+              "category": "Architecture"
+            },
+            {
+              "glyph": "Q",
+              "title": "GraphQL + Apollo",
+              "caption": "Fast, cached data",
+              "category": "Architecture"
+            },
+            {
+              "glyph": "OK",
+              "title": "Testing",
+              "caption": "JUnit, Compose UI & Mockito",
+              "category": "Testing"
+            }
           ]
         }
       ]
@@ -70,7 +149,11 @@
       "label": "Journey",
       "icon": "map",
       "sections": [
-        { "type": "header", "id": "header", "title": "My journey" },
+        {
+          "type": "header",
+          "id": "header",
+          "title": "My journey"
+        },
         {
           "type": "timeline",
           "id": "timeline",
@@ -121,19 +204,176 @@
       ]
     },
     {
+      "id": "culture",
+      "label": "Culture",
+      "icon": "flag-vn",
+      "sections": [
+        {
+          "type": "header",
+          "id": "header",
+          "title": "Xin chào!",
+          "subtitle": "My Vietnamese roots"
+        },
+        {
+          "type": "about",
+          "id": "about",
+          "title": "Where I come from",
+          "paragraphs": [
+            "I'm Vietnamese, and my name, Thiện, means goodness or kindness. I try to live up to it, at work and everywhere else.",
+            "Family, food and celebrating together are at the heart of Vietnamese culture. They shape how I work with people too: show up for your team, share what you have, and make everyone feel welcome at the table."
+          ]
+        },
+        {
+          "type": "fun_facts",
+          "id": "culture-facts",
+          "facts": [
+            {
+              "front": "What does my name mean?",
+              "back": "Thiện means goodness or kindness."
+            },
+            {
+              "front": "The biggest holiday?",
+              "back": "Tết, the Lunar New Year: family, bánh chưng and lucky red envelopes (lì xì)."
+            },
+            {
+              "front": "Coffee, Vietnamese style?",
+              "back": "Cà phê sữa đá: strong drip coffee over ice with sweet condensed milk."
+            },
+            {
+              "front": "How do you say hello?",
+              "back": "Xin chào! And thank you is cảm ơn."
+            }
+          ]
+        },
+        {
+          "type": "skills",
+          "id": "dishes",
+          "title": "Dishes everyone should try",
+          "allLabel": "All",
+          "cards": [
+            {
+              "glyph": "🍜",
+              "title": "Phở",
+              "caption": "Beef or chicken noodle soup with fresh herbs",
+              "category": "Noodles",
+              "featured": true
+            },
+            {
+              "glyph": "🥖",
+              "title": "Bánh mì",
+              "caption": "Crispy baguette sandwich with pickled veggies",
+              "category": "Street food"
+            },
+            {
+              "glyph": "🥬",
+              "title": "Gỏi cuốn",
+              "caption": "Fresh spring rolls with peanut sauce",
+              "category": "Street food"
+            },
+            {
+              "glyph": "🍢",
+              "title": "Bún chả",
+              "caption": "Grilled pork with rice noodles, Hanoi style",
+              "category": "Noodles"
+            },
+            {
+              "glyph": "🍚",
+              "title": "Cơm tấm",
+              "caption": "Broken rice with grilled pork, Saigon style",
+              "category": "Rice"
+            },
+            {
+              "glyph": "🍧",
+              "title": "Chè",
+              "caption": "Sweet dessert soup with beans, jelly and coconut",
+              "category": "Sweets"
+            }
+          ]
+        },
+        {
+          "type": "places",
+          "id": "vietnam",
+          "title": "Vietnam at a glance",
+          "subtitle": "Live from a GraphQL API with Apollo",
+          "countryCodes": [
+            "VN"
+          ]
+        },
+        {
+          "type": "photos",
+          "id": "vietnam-photos",
+          "items": [
+            {
+              "imageUrl": "https://images.pexels.com/photos/20224478/pexels-photo-20224478.jpeg?auto=compress&cs=tinysrgb&w=1260",
+              "pageUrl": "https://www.pexels.com/photo/square-in-front-of-binh-tay-market-20224478/",
+              "photographer": "Tuan Vy",
+              "photographerUrl": "https://www.pexels.com/@tuan-vy-903011268/",
+              "alt": "The Binh Tay Market entrance with trees and flags in Ho Chi Minh City"
+            },
+            {
+              "imageUrl": "https://images.pexels.com/photos/14025217/pexels-photo-14025217.jpeg?auto=compress&cs=tinysrgb&w=1260",
+              "pageUrl": "https://www.pexels.com/photo/aerial-view-of-mountains-and-hills-14025217/",
+              "photographer": "Quang Nguyen Vinh",
+              "photographerUrl": "https://www.pexels.com/@quang-nguyen-vinh-222549/",
+              "alt": "Aerial view of green terraced rice fields with mountains behind"
+            },
+            {
+              "imageUrl": "https://images.pexels.com/photos/31098878/pexels-photo-31098878.jpeg?auto=compress&cs=tinysrgb&w=1260",
+              "pageUrl": "https://www.pexels.com/photo/vibrant-ho-chi-minh-city-skyline-at-night-31098878/",
+              "photographer": "Thể Phạm",
+              "photographerUrl": "https://www.pexels.com/@phamthe/",
+              "alt": "Ho Chi Minh City skyline at night, lights reflecting on the water"
+            },
+            {
+              "imageUrl": "https://images.pexels.com/photos/32961651/pexels-photo-32961651.jpeg?auto=compress&cs=tinysrgb&w=1260",
+              "pageUrl": "https://www.pexels.com/photo/traditional-vietnamese-banh-mi-on-newspaper-32961651/",
+              "photographer": "Hậu Mai",
+              "photographerUrl": "https://www.pexels.com/@h-u-mai-2153907229/",
+              "alt": "A Vietnamese bánh mì with fresh herbs on newspaper"
+            },
+            {
+              "imageUrl": "https://images.pexels.com/photos/39199497/pexels-photo-39199497.jpeg?auto=compress&cs=tinysrgb&w=1260",
+              "pageUrl": "https://www.pexels.com/photo/ornate-buddhist-temple-gate-in-da-n-ng-vietnam-39199497/",
+              "photographer": "Hussain Badshah",
+              "photographerUrl": "https://www.pexels.com/@hussain-badshah-2084644/",
+              "alt": "An ornate Buddhist temple gate with flags in Đà Nẵng"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "fun",
       "label": "Fun facts",
       "icon": "heart",
       "sections": [
-        { "type": "header", "id": "header", "title": "Fun facts", "subtitle": "Tap a card to flip it", "showBack": false },
+        {
+          "type": "header",
+          "id": "header",
+          "title": "Fun facts",
+          "subtitle": "Tap a card to flip it",
+          "showBack": false
+        },
         {
           "type": "fun_facts",
           "id": "facts",
           "facts": [
-            { "front": "An award I’m proud of?", "back": "Named one of Expedia’s Employees of the Month for my Help Center work!" },
-            { "front": "How did college start?", "back": "I was admitted to UCF as one of its top 10 students." },
-            { "front": "Favorite coding fuel?", "back": "Edit me in profile.json! (Boba? Coffee? Snacks?)" },
-            { "front": "Dream trip?", "back": "Edit me in profile.json! Where would you go first?" }
+            {
+              "front": "An award I’m proud of?",
+              "back": "Named one of Expedia’s Employees of the Month for my Help Center work!"
+            },
+            {
+              "front": "How did college start?",
+              "back": "I was admitted to UCF as one of its top 10 students."
+            },
+            {
+              "front": "Favorite coding fuel?",
+              "back": "Homemade matcha or Vietnamese coffee"
+            },
+            {
+              "front": "Dream trip?",
+              "back": "Japan is always my dream trip but since I've been there already, Rome is up next!"
+            }
           ]
         },
         {
@@ -141,7 +381,12 @@
           "id": "places",
           "title": "On my travel list",
           "subtitle": "Live from a GraphQL API with Apollo",
-          "countryCodes": ["JP", "IS", "IT", "VN"]
+          "countryCodes": [
+            "JP",
+            "IS",
+            "IT",
+            "VN"
+          ]
         },
         {
           "type": "contact",
@@ -149,9 +394,21 @@
           "title": "Let's be friends",
           "message": "Always happy to chat Android, Compose & travel apps.",
           "links": [
-            { "kind": "email", "label": "Email me", "url": "mailto:courtthan@gmail.com" },
-            { "kind": "linkedin", "label": "LinkedIn", "url": "https://www.linkedin.com/in/thien-than-006328195/" },
-            { "kind": "github", "label": "GitHub", "url": "https://github.com/YOUR_GITHUB_USERNAME" }
+            {
+              "kind": "email",
+              "label": "Email me",
+              "url": "mailto:courtthan@gmail.com"
+            },
+            {
+              "kind": "linkedin",
+              "label": "LinkedIn",
+              "url": "https://www.linkedin.com/in/thien-than-006328195/"
+            },
+            {
+              "kind": "github",
+              "label": "GitHub",
+              "url": "https://github.com/CourtneyThan/CourtneyThan_Intro_App"
+            }
           ]
         }
       ]

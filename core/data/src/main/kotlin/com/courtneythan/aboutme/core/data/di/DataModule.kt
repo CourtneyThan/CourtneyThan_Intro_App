@@ -13,6 +13,9 @@ import com.courtneythan.aboutme.core.data.FileProfileCache
 import com.courtneythan.aboutme.core.data.IoDispatcher
 import com.courtneythan.aboutme.core.data.OfflineFirstProfileRepository
 import com.courtneythan.aboutme.core.data.OkHttpRemoteProfileSource
+import com.courtneythan.aboutme.core.data.PEXELS_BASE_URL
+import com.courtneythan.aboutme.core.data.PexelsPhotosRepository
+import com.courtneythan.aboutme.core.data.PhotosRepository
 import com.courtneythan.aboutme.core.data.PlacesRepository
 import com.courtneythan.aboutme.core.data.ProfileCache
 import com.courtneythan.aboutme.core.data.ProfileRepository
@@ -28,6 +31,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -39,6 +43,9 @@ internal abstract class DataModule {
 
     @Binds
     abstract fun bindPlaces(impl: ApolloPlacesRepository): PlacesRepository
+
+    @Binds
+    abstract fun bindPhotos(impl: PexelsPhotosRepository): PhotosRepository
 
     @Binds
     abstract fun bindBundled(impl: AssetProfileSource): BundledProfileSource
@@ -80,6 +87,10 @@ internal abstract class DataModule {
                         .chain(SqlNormalizedCacheFactory(context, "places.db")),
                 )
                 .build()
+
+        @Provides
+        @Named(PEXELS_BASE_URL)
+        fun providePexelsBaseUrl(): String = "https://api.pexels.com/"
 
         @Provides
         @IoDispatcher

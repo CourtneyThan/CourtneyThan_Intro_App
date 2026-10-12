@@ -205,8 +205,9 @@ fun Badge(text: String, modifier: Modifier = Modifier, color: Color = InkyColors
     )
 }
 
+/** [multicolor] = draw the icon in its own colors (e.g. a flag) instead of tinting it. */
 @Immutable
-data class NavItem(val label: String, val icon: ImageVector)
+data class NavItem(val label: String, val icon: ImageVector, val multicolor: Boolean = false)
 
 /** Floating ink pill with one round slot per tab; the selected slot turns peach. */
 @Composable
@@ -222,7 +223,8 @@ fun BottomNav(
             .background(InkyColors.Ink)
             .padding(8.dp)
             .selectableGroup(),
-        horizontalArrangement = Arrangement.spacedBy(26.dp),
+        // Five tabs need tighter spacing to fit a 360dp-wide phone.
+        horizontalArrangement = Arrangement.spacedBy(if (items.size > 4) 16.dp else 26.dp),
     ) {
         items.forEachIndexed { index, item ->
             val selected = index == selectedIndex
@@ -238,7 +240,11 @@ fun BottomNav(
                 Icon(
                     imageVector = item.icon,
                     contentDescription = null,
-                    tint = if (selected) InkyColors.Ink else InkyColors.Cream,
+                    tint = when {
+                        item.multicolor -> Color.Unspecified
+                        selected -> InkyColors.Ink
+                        else -> InkyColors.Cream
+                    },
                 )
             }
         }

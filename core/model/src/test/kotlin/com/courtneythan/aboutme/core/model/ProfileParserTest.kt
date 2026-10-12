@@ -48,6 +48,36 @@ class ProfileParserTest {
     }
 
     @Test
+    fun `photos section has sensible defaults`() {
+        val section = sectionsOf(doc("""{ "type": "photos", "id": "ph", "query": "Vietnam" }""")).single()
+        assertEquals(Section.Photos(id = "ph", query = "Vietnam", title = null, count = 6), section)
+    }
+
+    @Test
+    fun `photos section accepts hand-picked ids`() {
+        val section = sectionsOf(doc("""{ "type": "photos", "id": "ph", "photoIds": [20224478, 14025217] }""")).single()
+        assertEquals(listOf(20224478L, 14025217L), (section as Section.Photos).photoIds)
+    }
+
+    @Test
+    fun `photos section accepts photos written in the json`() {
+        val section = sectionsOf(
+            doc(
+                """{ "type": "photos", "id": "ph", "items": [
+                    { "imageUrl": "https://images.pexels.com/1.jpeg", "pageUrl": "https://www.pexels.com/photo/1/",
+                      "photographer": "Tuan Vy", "photographerUrl": "https://www.pexels.com/@tuan", "alt": "Market" } ] }""",
+            ),
+        ).single() as Section.Photos
+        assertEquals("Tuan Vy", section.items.single().photographer)
+    }
+
+    @Test
+    fun `photos section with neither ids nor query is Unsupported`() {
+        val section = sectionsOf(doc("""{ "type": "photos", "id": "ph" }""")).single()
+        assertEquals(Section.Unsupported(id = "ph", originalType = "photos"), section)
+    }
+
+    @Test
     fun `welcome is decoded when present`() {
         val profile = parser.parse(
             doc("", extra = """, "welcome": { "greeting": "Hi", "bubble": "b", "title": "T", "body": "x", "cta": "Go" }"""),

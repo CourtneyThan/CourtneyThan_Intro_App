@@ -87,6 +87,7 @@ internal fun SkillsSection(section: Section.Skills, modifier: Modifier = Modifie
     val visible = if (selected == section.allLabel) section.cards else section.cards.filter { it.category == selected }
 
     Column(modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        section.title?.let { Heading(it) }
         Row(
             modifier = Modifier.horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
