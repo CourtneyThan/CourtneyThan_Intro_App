@@ -13,10 +13,6 @@ The UI was designed first in [Figma](https://www.figma.com/design/kwMbBvJQRsWkpj
 </p>
 <p align="left"><a href="docs/demo.mp4">▶️ Watch the full-quality video (MP4)</a></p>
 
-| Welcome | Home | Toolbox | Journey | Culture | Fun facts |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| <img src="docs/screenshots/welcome.png" width="140" alt="Welcome screen with Inky the mascot"/> | <img src="docs/screenshots/home.png" width="140" alt="Home tab with avatar, stats and about me"/> | <img src="docs/screenshots/toolbox.png" width="140" alt="Toolbox tab with filter chips and skill cards"/> | <img src="docs/screenshots/journey.png" width="140" alt="Journey tab with career timeline"/> | <img src="docs/screenshots/culture.png" width="140" alt="Culture tab with Vietnamese culture cards"/> | <img src="docs/screenshots/fun-facts.png" width="140" alt="Fun facts tab with flip cards and travel list"/> |
-
 Designed in [Figma](https://www.figma.com/design/kwMbBvJQRsWkpjbLCwfbCV) first, then built to match.
 
 ![Android CI](https://github.com/CourtneyThan/CourtneyThan_Intro_App/actions/workflows/android.yml/badge.svg)
