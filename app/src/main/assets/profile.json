@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "welcome": {
+    "greeting": "Hello there!",
+    "bubble": "Psst… want to meet me?",
+    "title": "MEET COURTNEY",
+    "body": "The Android engineer behind this little app. Swipe through to see what I build and how I build it.",
+    "cta": "Let's go",
+    "skip": "Skip"
+  },
+  "tabs": [
+    {
+      "id": "home",
+      "label": "Home",
+      "icon": "home",
+      "sections": [
+        {
+          "type": "hero",
+          "id": "hero",
+          "name": "Courtney Than",
+          "nickname": "Thien",
+          "title": "Android Engineer @ Expedia",
+          "stats": [
+            { "value": "3", "label": "years at Expedia" },
+            { "value": "+15%", "label": "AI rec engagement" },
+            { "value": "15+", "label": "code reviews / mo" }
+          ]
+        },
+        {
+          "type": "about",
+          "id": "about",
+          "title": "About me",
+          "paragraphs": [
+            "I turn big product ideas into friendly Android screens. At Expedia I build server-driven features in Kotlin and Jetpack Compose for travelers around the world."
+          ]
+        },
+        {
+          "type": "link_list",
+          "id": "links",
+          "links": [
+            { "title": "My toolbox", "subtitle": "Kotlin, Compose, SDUI & more", "icon": "star", "action": { "type": "open_tab", "tabId": "toolbox" } },
+            { "title": "My journey", "subtitle": "From UCF to Expedia", "icon": "map", "action": { "type": "open_tab", "tabId": "journey" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "toolbox",
+      "label": "Toolbox",
+      "icon": "star",
+      "sections": [
+        { "type": "header", "id": "header", "title": "My toolbox" },
+        {
+          "type": "skills",
+          "id": "skills",
+          "allLabel": "All",
+          "cards": [
+            { "glyph": "K", "title": "Kotlin", "caption": "My everyday language", "category": "Android" },
+            { "glyph": "UI", "title": "Jetpack Compose", "caption": "Built a 10-component Help Center library", "category": "Android", "featured": true },
+            { "glyph": "~", "title": "Coroutines & Flow", "caption": "Async code that stays tidy", "category": "Android" },
+            { "glyph": "{ }", "title": "Server-driven UI", "caption": "Screens described by JSON", "category": "Architecture" },
+            { "glyph": "Q", "title": "GraphQL + Apollo", "caption": "Fast, cached data", "category": "Architecture" },
+            { "glyph": "OK", "title": "Testing", "caption": "JUnit, Compose UI & Mockito", "category": "Testing" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "journey",
+      "label": "Journey",
+      "icon": "map",
+      "sections": [
+        { "type": "header", "id": "header", "title": "My journey" },
+        {
+          "type": "timeline",
+          "id": "timeline",
+          "entries": [
+            {
+              "role": "Software Engineer II",
+              "company": "Expedia Group",
+              "period": "Feb 2025 – now",
+              "current": true,
+              "highlights": [
+                "Server-driven UI with Jetpack Compose",
+                "Romie AI recs: ~15% more engagement",
+                "Activity Planner: 5 AI-assisted features",
+                "~25% less duplicate UI work"
+              ]
+            },
+            {
+              "role": "Software Engineer I",
+              "company": "Expedia Group",
+              "period": "Aug 2023 – Feb 2025",
+              "badge": "Employee of the Month",
+              "highlights": [
+                "Android lead for the BEX Help Center, from architecture to production",
+                "Help Center module with 10 reusable components (~20% less duplicate work)",
+                "~15% faster page loads by tuning GraphQL data handling"
+              ]
+            },
+            {
+              "role": "Software Engineer Intern",
+              "company": "Expedia Group",
+              "period": "May – Aug 2022",
+              "highlights": [
+                "Multi-participant Virtual Agent chat in ReactJS",
+                "Designed flows in Figma, tested with Jest"
+              ]
+            },
+            {
+              "role": "B.S. Computer Science",
+              "company": "UCF",
+              "period": "3.8 GPA",
+              "highlights": [
+                "Admitted as one of UCF's top 10 students",
+                "Coursework: OOP, System Software, Machine Learning, Security"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fun",
+      "label": "Fun facts",
+      "icon": "heart",
+      "sections": [
+        { "type": "header", "id": "header", "title": "Fun facts", "subtitle": "Tap a card to flip it", "showBack": false },
+        {
+          "type": "fun_facts",
+          "id": "facts",
+          "facts": [
+            { "front": "An award I’m proud of?", "back": "Named one of Expedia’s Employees of the Month for my Help Center work!" },
+            { "front": "How did college start?", "back": "I was admitted to UCF as one of its top 10 students." },
+            { "front": "Favorite coding fuel?", "back": "Edit me in profile.json! (Boba? Coffee? Snacks?)" },
+            { "front": "Dream trip?", "back": "Edit me in profile.json! Where would you go first?" }
+          ]
+        },
+        {
+          "type": "contact",
+          "id": "contact",
+          "title": "Let's be friends",
+          "message": "Always happy to chat Android, Compose & travel apps.",
+          "links": [
+            { "kind": "email", "label": "Email me", "url": "mailto:courtthan@gmail.com" },
+            { "kind": "linkedin", "label": "LinkedIn", "url": "https://www.linkedin.com/in/thien-than-006328195/" },
+            { "kind": "github", "label": "GitHub", "url": "https://github.com/YOUR_GITHUB_USERNAME" }
+          ]
+        }
+      ]
+    }
+  ]
+}

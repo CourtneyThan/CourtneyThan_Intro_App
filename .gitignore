@@ -1,0 +1,13 @@
+*.iml
+.gradle/
+/local.properties
+.idea/
+.DS_Store
+build/
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.aab
+# Downloaded by scripts/download_fonts.sh
+core/designsystem/src/main/assets/fonts/*.ttf

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hero_aka">aka %1$s</string>
+    <string name="back">Back to home</string>
+    <string name="timeline_tab">Timeline</string>
+    <string name="highlights_tab">Highlights</string>
+    <string name="now">NOW</string>
+    <string name="state_expanded">expanded</string>
+    <string name="state_collapsed">collapsed</string>
+    <string name="flipped">Flipped!</string>
+    <string name="error_title">Oops, I couldn\'t load my story</string>
+    <string name="retry">Try again</string>
+    <string name="profile_footer">Made with Kotlin &amp; Compose · content: %1$s</string>
+    <string name="source_bundled">bundled</string>
+    <string name="source_cache">cached</string>
+    <string name="source_remote">live</string>
+</resources>

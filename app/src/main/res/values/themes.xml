@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Compose draws the UI; this theme only colors the window before the first frame. -->
+    <style name="Theme.AboutMe" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/cream</item>
+    </style>
+    <color name="cream">#FFF7EE</color>
+    <color name="ink">#1E1B26</color>
+</resources>

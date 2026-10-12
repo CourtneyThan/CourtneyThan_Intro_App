@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Inky, the app's original ink-blob mascot. Same paths as the Figma component "Mascot / Inky". -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    <!-- antennae -->
+    <path android:pathData="M44,26 L35,9" android:strokeColor="#1E1B26" android:strokeWidth="5" android:strokeLineCap="round" />
+    <path android:pathData="M76,26 L85,9" android:strokeColor="#1E1B26" android:strokeWidth="5" android:strokeLineCap="round" />
+    <path android:pathData="M30,9 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" android:fillColor="#1E1B26" />
+    <path android:pathData="M80,9 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" android:fillColor="#1E1B26" />
+    <!-- body -->
+    <path
+        android:fillColor="#1E1B26"
+        android:pathData="M20,70 C20,35 42,20 60,20 C78,20 100,35 100,70 L100,92 C100,98 94,100 92,94 C90,88 86,88 85,96 C84,106 76,106 75,96 C74,90 68,90 67,98 C66,112 56,112 55,98 C54,90 48,90 47,96 C46,104 38,104 37,96 C36,90 30,90 28,96 C26,100 20,98 20,92 Z" />
+    <!-- eyes -->
+    <path android:pathData="M35,60 a11,13 0 1,0 22,0 a11,13 0 1,0 -22,0" android:fillColor="#FFFFFF" />
+    <path android:pathData="M63,60 a11,13 0 1,0 22,0 a11,13 0 1,0 -22,0" android:fillColor="#FFFFFF" />
+    <path android:pathData="M42,63 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0" android:fillColor="#1E1B26" />
+    <path android:pathData="M70,63 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0" android:fillColor="#1E1B26" />
+    <path android:pathData="M43,59 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0" android:fillColor="#FFFFFF" />
+    <path android:pathData="M71,59 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0" android:fillColor="#FFFFFF" />
+    <!-- cheeks -->
+    <path android:pathData="M27,77 a6,3.5 0 1,0 12,0 a6,3.5 0 1,0 -12,0" android:fillColor="#F6A779" />
+    <path android:pathData="M81,77 a6,3.5 0 1,0 12,0 a6,3.5 0 1,0 -12,0" android:fillColor="#F6A779" />
+    <!-- smile -->
+    <path android:pathData="M55,78 Q60,84 65,78" android:strokeColor="#FFFFFF" android:strokeWidth="3" android:strokeLineCap="round" />
+</vector>
