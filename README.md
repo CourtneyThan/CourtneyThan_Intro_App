@@ -17,7 +17,7 @@ Designed in [Figma](https://www.figma.com/design/kwMbBvJQRsWkpjbLCwfbCV) first, 
 <!-- Optional: add a short screen recording at docs/demo.gif and uncomment:
 <p align="center"><img src="docs/demo.gif" width="300" alt="App demo"/></p> -->
 
-![Android CI](https://github.com/YOUR_GITHUB_USERNAME/about-me-android/actions/workflows/android.yml/badge.svg)
+![Android CI](https://github.com/CourtneyThan/CourtneyThan_Intro_App/actions/workflows/android.yml/badge.svg)
 
 ## What's inside
 
@@ -45,18 +45,22 @@ Designed in [Figma](https://www.figma.com/design/kwMbBvJQRsWkpjbLCwfbCV) first, 
 ## Architecture
 
 ```
-┌─────────────┐     ┌────────────────────┐     ┌───────────────────────────┐
-│    :app     │────▶│ :feature:profile   │────▶│ :core:data                │
-│ Activity,   │     │ ViewModel, screen, │     │ OfflineFirstProfileRepo   │
-│ Hilt setup  │     │ SectionRenderer    │     │  ├ bundled (assets)       │
-└─────────────┘     └─────────┬──────────┘     │  ├ cache  (filesDir)      │
-                              │                │  └ remote (OkHttp)        │
-                              ▼                └────────────┬──────────────┘
-                    ┌────────────────────┐                  ▼
-                    │ :core:designsystem │     ┌───────────────────────────┐
-                    │ theme, CuteCard,   │     │ :core:model (pure Kotlin) │
-                    │ Pill, WavingEmoji  │     │ Section types, parser     │
-                    └────────────────────┘     └───────────────────────────┘
+┌──────────────┐    ┌──────────────────────┐    ┌─────────────────────────────┐
+│ :app         │───▶│ :feature:profile     │───▶│ :core:data                  │
+│ Activity,    │    │ ProfileViewModel,    │    │ OfflineFirstProfileRepo     │
+│ Hilt setup,  │    │ PlacesViewModel,     │    │  ├ bundled (assets)         │
+│ profile.json │    │ SectionRenderer      │    │  ├ cache (filesDir)         │
+└──────────────┘    └──────────┬───────────┘    │  └ remote (OkHttp)          │
+                               │                │ ApolloPlacesRepository ─────┼──▶ Countries
+                               ▼                │  └ normalized cache         │    GraphQL API
+                    ┌──────────────────────┐    │    (memory + SQLite)        │
+                    │ :core:designsystem   │    └──────────────┬──────────────┘
+                    │ tokens, DripShape,   │                   ▼
+                    │ Inky, InkCard, nav   │    ┌─────────────────────────────┐
+                    └──────────────────────┘    │ :core:model (pure Kotlin)   │
+                                                │ Tabs, Sections, Actions,    │
+                                                │ Place, ProfileParser        │
+                                                └─────────────────────────────┘
 ```
 
 **How a screen gets drawn**
@@ -76,11 +80,61 @@ Design decisions are written up in [`docs/adr`](docs/adr):
 - [0003 – Offline-first content](docs/adr/0003-offline-first.md)
 - [0004 – Layout from JSON, data from GraphQL](docs/adr/0004-layout-json-data-graphql.md)
 
+## GraphQL + Apollo
+
+The app uses a **hybrid SDUI** pattern, the same split many production apps use: `profile.json` decides the **layout** (which sections, in what order), and some sections fetch their **data** live over GraphQL.
+
+The "On my travel list" section is the example. The JSON only names the countries:
+
+```json
+{ "type": "places", "id": "places", "title": "On my travel list",
+  "countryCodes": ["JP", "IS", "IT", "VN", "GR"] }
+```
+
+Apollo then fetches each country's flag, capital, continent, currency and languages from the public [Countries GraphQL API](https://countries.trevorblades.com).
+
+| File | Role |
+|---|---|
+| [`schema.graphqls`](core/data/src/main/graphql/schema.graphqls) | The schema (SDL) for the part of the API the app uses |
+| [`Countries.graphql`](core/data/src/main/graphql/Countries.graphql) | The query. Apollo generates the type-safe `CountriesQuery` class from it at build time |
+| [`extra.graphqls`](core/data/src/main/graphql/extra.graphqls) | Client-only rule: `@typePolicy(keyFields: "code")`, so the cache stores each country once (`Country:JP`) |
+| [`PlacesRepository.kt`](core/data/src/main/kotlin/com/courtneythan/aboutme/core/data/PlacesRepository.kt) | Runs the query and maps Apollo's generated classes to the app's own `Place` model |
+| [`DataModule.kt`](core/data/src/main/kotlin/com/courtneythan/aboutme/core/data/di/DataModule.kt) | Builds the `ApolloClient`: server URL, shared OkHttp client, memory + SQLite cache |
+| [`PlacesViewModel.kt`](feature/profile/src/main/kotlin/com/courtneythan/aboutme/feature/profile/places/PlacesViewModel.kt) | Takes the codes from the JSON, exposes `Loading` / `Content` / `Error`, supports retry |
+
+**What goes over the wire.** The codes are sent as GraphQL **variables**, separate from the query text, in an HTTP POST:
+
+```json
+{
+  "operationName": "Countries",
+  "variables": { "codes": ["JP", "IS", "IT", "VN", "GR"] },
+  "query": "query Countries($codes: [String!]!) { countries(filter: { code: { in: $codes } }) { code name emoji capital currency continent { name } languages { name } } }"
+}
+```
+
+**Caching.** Apollo's normalized cache (memory, backed by SQLite) is read with `FetchPolicy.CacheAndNetwork`:
+
+- Saved places show instantly, even offline and after a restart. The network then refreshes them.
+- A failed refresh keeps the saved copy on screen. With no cache and no network, the section shows an error card with **Try again**.
+- A network problem only affects this section; the rest of the app is local content.
+
+**Type safety.** The query is checked against the schema at build time, so a misspelled field fails the build, not the app. The UI depends on `Place`, never on generated classes, so changing the query doesn't ripple into Compose code.
+
+**Try it:** change `countryCodes` in `profile.json` (ISO codes like `"FR"`) and run the app; no Kotlin changes needed. To pull the full, latest schema from the API:
+
+```bash
+./gradlew :core:data:downloadCountriesApolloSchemaFromIntrospection
+```
+
+**Tests.** [`ApolloPlacesRepositoryTest`](core/data/src/test/kotlin/com/courtneythan/aboutme/core/data/ApolloPlacesRepositoryTest.kt) runs the real Apollo client against a local `MockWebServer`. It checks the variables sent, response parsing, ordering, the offline cache fallback and the error case. `PlacesViewModelTest` and `PlacesContentTest` cover the state and the UI.
+
+More detail: [ADR 0004 – Layout from JSON, data from GraphQL](docs/adr/0004-layout-json-data-graphql.md).
+
 ## Make it yours: update the app without a release
 
 1. Push this repo to GitHub.
 2. In `app/build.gradle.kts`, set `PROFILE_URL` to the raw URL of your JSON:
-   `https://raw.githubusercontent.com/<you>/about-me-android/main/app/src/main/assets/profile.json`
+   `https://raw.githubusercontent.com/CourtneyThan/CourtneyThan_Intro_App/main/app/src/main/assets/profile.json`
 3. Install the app. Now edit `profile.json` on GitHub (reorder sections, add a fun fact) and reopen the app. ✨
 
 ### Content schema
@@ -114,8 +168,8 @@ Unknown fields are ignored. Unknown section or action types are skipped. A broke
 Requirements: Android Studio (Ladybug or newer), JDK 17.
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/about-me-android.git
-cd about-me-android
+git clone https://github.com/CourtneyThan/CourtneyThan_Intro_App.git
+cd CourtneyThan_Intro_App
 ./scripts/download_fonts.sh  # Fredoka + Nunito (free, OFL). Optional: without them the system font is used
 ./gradlew installDebug       # run on a device or emulator
 ./gradlew test               # unit tests
