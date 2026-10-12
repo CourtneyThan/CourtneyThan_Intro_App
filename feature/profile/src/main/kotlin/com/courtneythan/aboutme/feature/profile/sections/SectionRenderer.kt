@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.courtneythan.aboutme.core.model.Action
 import com.courtneythan.aboutme.core.model.Section
+import com.courtneythan.aboutme.feature.profile.places.PlacesSection
 
 /**
  * The SDUI "registry": maps each server-defined [Section] to a Compose component.
@@ -31,6 +32,7 @@ fun SectionRenderer(
         is Section.Skills -> SkillsSection(section, content)
         is Section.Timeline -> TimelineSection(section, content)
         is Section.FunFacts -> FunFactsSection(section, content)
+        is Section.Places -> PlacesSection(section, content)
         is Section.Contact -> ContactSection(section, onAction, content)
         is Section.Unsupported -> Unit // filtered out upstream; render nothing just in case
     }

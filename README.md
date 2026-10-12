@@ -4,10 +4,18 @@ A cute little Android app that introduces me, and a small showcase of how I like
 
 Everything you see in the app (the welcome screen, the four tabs, every card and button) comes from **one JSON file** ([`profile.json`](app/src/main/assets/profile.json)) and is drawn at runtime by a tiny **server-driven UI (SDUI)** engine written in Kotlin and Jetpack Compose. Change the JSON on GitHub and the app updates itself, with no new release needed.
 
-The UI was designed first in Figma (ink, cream and peach, drippy ink headers, and an original mascot named **Inky**) and then built to match, using the same color tokens, type ramp, icon paths and drip curves.
+The UI was designed first in [Figma](https://www.figma.com/design/kwMbBvJQRsWkpjbLCwfbCV) (ink, cream and peach, drippy ink headers, and an original mascot named **Inky**) and then built to match, using the same color tokens, type ramp, icon paths and drip curves.
 
-<!-- Add a screen recording here: docs/demo.gif -->
-<p align="center"><img src="docs/demo.gif" width="300" alt="App demo"/></p>
+## Screenshots
+
+| Welcome | Home | Toolbox | Journey | Fun facts |
+|:---:|:---:|:---:|:---:|:---:|
+| <img src="docs/screenshots/welcome.png" width="160" alt="Welcome screen with Inky the mascot"/> | <img src="docs/screenshots/home.png" width="160" alt="Home tab with avatar, stats and about me"/> | <img src="docs/screenshots/toolbox.png" width="160" alt="Toolbox tab with filter chips and skill cards"/> | <img src="docs/screenshots/journey.png" width="160" alt="Journey tab with career timeline"/> | <img src="docs/screenshots/fun-facts.png" width="160" alt="Fun facts tab with flip cards and contact card"/> |
+
+Designed in [Figma](https://www.figma.com/design/kwMbBvJQRsWkpjbLCwfbCV) first, then built to match.
+
+<!-- Optional: add a short screen recording at docs/demo.gif and uncomment:
+<p align="center"><img src="docs/demo.gif" width="300" alt="App demo"/></p> -->
 
 ![Android CI](https://github.com/YOUR_GITHUB_USERNAME/about-me-android/actions/workflows/android.yml/badge.svg)
 
@@ -19,9 +27,10 @@ The UI was designed first in Figma (ink, cream and peach, drippy ink headers, an
 | **Server-driven UI** | JSON → tabs → sealed `Section` types → Compose renderer. Server-defined **actions** (`open_tab`, `open_url`) and bottom-nav tabs. Safe fallbacks for unknown or broken sections |
 | **Architecture** | Multi-module, unidirectional data flow (`ViewModel` → `StateFlow<UiState>` → stateless screen) |
 | **Data** | Offline-first repository: bundled → cached → remote (stale-while-revalidate) |
+| **GraphQL** | Apollo Kotlin 4: schema + typed query codegen, normalized cache (memory + SQLite, `@typePolicy` keys), `CacheAndNetwork` |
 | **Async** | Kotlin Coroutines & Flow (`flatMapLatest`, `stateIn`, `flowOn`, structured concurrency) |
 | **DI** | Hilt |
-| **Testing** | JUnit + Turbine unit tests, Compose UI tests, and a CI check that validates the content file |
+| **Testing** | JUnit + Turbine unit tests, Apollo against MockWebServer, Compose UI tests, and a CI check that validates the content file |
 | **Accessibility** | Headings for TalkBack, decorative emoji hidden from screen readers, state descriptions, respects "remove animations" |
 | **CI** | GitHub Actions: unit tests, lint, debug APK, emulator UI tests |
 
@@ -31,6 +40,7 @@ The UI was designed first in Figma (ink, cream and peach, drippy ink headers, an
 - 🧰 Filter **My toolbox** by category.
 - 🗺️ In **My journey**, tap a past role to expand it, or switch to **Highlights**.
 - 🎀 Tap a **fun fact** card to flip it.
+- 🌍 Scroll **Fun facts** to "On my travel list": live country data over GraphQL. Turn on airplane mode and reopen: it still shows, from Apollo's cache.
 
 ## Architecture
 
@@ -55,12 +65,16 @@ The UI was designed first in Figma (ink, cream and peach, drippy ink headers, an
 2. In the background it fetches `PROFILE_URL`. If that JSON parses **and** is different, it's cached and emitted.
 3. `ProfileParser` decodes each section on its own. Unknown types or bad data become `Section.Unsupported`, so one broken block never breaks the screen.
 4. `ProfileViewModel` maps this into `ProfileUiState` (`Loading` / `Content` / `Error`).
-5. The app shows the welcome screen, then the tabs. `SectionRenderer` turns each `Section` into a Compose component, in the order the JSON lists them. Taps run server-defined `Action`s.
+5. A `places` section only names countries; `PlacesViewModel` fetches their details over GraphQL with Apollo (cache first, then network).
+6. The app shows the welcome screen, then the tabs. `SectionRenderer` turns each `Section` into a Compose component, in the order the JSON lists them. Taps run server-defined `Action`s.
+
+🎨 **Design file:** [Hi, I'm Courtney – App UI on Figma](https://www.figma.com/design/kwMbBvJQRsWkpjbLCwfbCV): all five screens plus the components (Inky, chips, list row, button, bottom nav) and color/text styles the code mirrors.
 
 Design decisions are written up in [`docs/adr`](docs/adr):
 - [0001 – Server-driven UI with a sealed class registry](docs/adr/0001-server-driven-ui.md)
 - [0002 – Fallbacks for unknown and broken sections](docs/adr/0002-section-fallbacks.md)
 - [0003 – Offline-first content](docs/adr/0003-offline-first.md)
+- [0004 – Layout from JSON, data from GraphQL](docs/adr/0004-layout-json-data-graphql.md)
 
 ## Make it yours: update the app without a release
 
@@ -88,6 +102,7 @@ Each section needs a `type` and an `id` that's unique within its tab.
 | `skills` | `allLabel`, `cards[]` of `{ glyph, title, caption, category, featured }` |
 | `timeline` | `entries[]` of `{ role, company, period, highlights[], badge?, current }` |
 | `fun_facts` | `facts[]` of `{ front, back }` |
+| `places` | `title`, optional `subtitle`, `countryCodes[]` (ISO codes like `"JP"`; details come from GraphQL) |
 | `contact` | `title`, `message`, `links[]` of `{ kind, label, url }` |
 
 Actions: `{ "type": "open_tab", "tabId": "journey" }` or `{ "type": "open_url", "url": "https://…" }`.
@@ -112,7 +127,7 @@ cd about-me-android
 - Screenshot tests (Roborazzi or Paparazzi) for every section, compared against the Figma frames
 - Gradle convention plugins to share module setup
 - A Baseline Profile for faster startup
-- Serve the layout from a GraphQL endpoint with Apollo, matching how I work day to day
+- Serve the layout itself over GraphQL too (one endpoint for layout + data), matching how I work day to day
 
 ## About me
 

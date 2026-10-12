@@ -74,6 +74,19 @@ sealed class Section {
         val facts: List<FunFact>,
     ) : Section()
 
+    /**
+     * Hybrid SDUI: the JSON places this section and names the countries, but the
+     * country details are live data from a GraphQL API (see PlacesRepository).
+     */
+    @Serializable
+    @SerialName("places")
+    data class Places(
+        override val id: String,
+        val title: String,
+        val subtitle: String? = null,
+        val countryCodes: List<String>,
+    ) : Section()
+
     @Serializable
     @SerialName("contact")
     data class Contact(

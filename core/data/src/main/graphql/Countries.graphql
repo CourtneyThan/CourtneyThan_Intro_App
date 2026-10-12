@@ -1,0 +1,17 @@
+# Fetches the countries listed in profile.json's "places" section.
+# Apollo generates CountriesQuery from this file at build time.
+query Countries($codes: [String!]!) {
+  countries(filter: { code: { in: $codes } }) {
+    code
+    name
+    emoji
+    capital
+    currency
+    continent {
+      name
+    }
+    languages {
+      name
+    }
+  }
+}

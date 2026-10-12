@@ -40,6 +40,14 @@ class ProfileParserTest {
     }
 
     @Test
+    fun `places section keeps its country codes`() {
+        val section = sectionsOf(
+            doc("""{ "type": "places", "id": "p", "title": "Travel", "countryCodes": ["JP", "IT"] }"""),
+        ).single()
+        assertEquals(Section.Places(id = "p", title = "Travel", countryCodes = listOf("JP", "IT")), section)
+    }
+
+    @Test
     fun `welcome is decoded when present`() {
         val profile = parser.parse(
             doc("", extra = """, "welcome": { "greeting": "Hi", "bubble": "b", "title": "T", "body": "x", "cta": "Go" }"""),

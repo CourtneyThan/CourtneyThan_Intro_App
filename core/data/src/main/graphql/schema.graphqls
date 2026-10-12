@@ -1,0 +1,49 @@
+# The part of the public Countries GraphQL API (https://countries.trevorblades.com) this app uses.
+# It's a subset of the full schema, kept small so it's easy to read.
+# To pull the full, latest schema:
+#   ./gradlew :core:data:downloadCountriesApolloSchemaFromIntrospection
+
+schema {
+  query: Query
+}
+
+type Query {
+  countries(filter: CountryFilterInput): [Country!]!
+  country(code: ID!): Country
+}
+
+type Country {
+  code: ID!
+  name: String!
+  native: String!
+  emoji: String!
+  capital: String
+  currency: String
+  continent: Continent!
+  languages: [Language!]!
+}
+
+type Continent {
+  code: ID!
+  name: String!
+}
+
+type Language {
+  code: ID!
+  name: String!
+}
+
+input CountryFilterInput {
+  code: StringQueryOperatorInput
+  continent: StringQueryOperatorInput
+  currency: StringQueryOperatorInput
+  name: StringQueryOperatorInput
+}
+
+input StringQueryOperatorInput {
+  eq: String
+  ne: String
+  in: [String!]
+  nin: [String!]
+  regex: String
+}

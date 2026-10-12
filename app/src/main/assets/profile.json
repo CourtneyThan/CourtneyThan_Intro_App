@@ -137,6 +137,13 @@
           ]
         },
         {
+          "type": "places",
+          "id": "places",
+          "title": "On my travel list",
+          "subtitle": "Live from a GraphQL API with Apollo",
+          "countryCodes": ["JP", "IS", "IT", "VN"]
+        },
+        {
           "type": "contact",
           "id": "contact",
           "title": "Let's be friends",

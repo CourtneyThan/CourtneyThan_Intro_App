@@ -53,4 +53,11 @@ class BundledProfileTest {
             .mapNotNull { (it.action as? Action.OpenTab)?.tabId }
         assertTrue("Unknown tab ids: ${targets - tabIds}", tabIds.containsAll(targets))
     }
+
+    @Test
+    fun `places use two-letter ISO country codes`() {
+        val codes = profile.tabs.flatMap { it.sections }.filterIsInstance<Section.Places>().flatMap { it.countryCodes }
+        val bad = codes.filterNot { it.matches(Regex("[A-Z]{2}")) }
+        assertTrue("Country codes must look like \"JP\": $bad", bad.isEmpty())
+    }
 }
